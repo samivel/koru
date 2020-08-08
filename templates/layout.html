@@ -86,24 +86,16 @@
             </div>
             <div id="layoutSidenav_content">
                 <main>
-
-                    <div style="margin-bottom: -10px;" class="alert alert-success border text-center" role="alert">This is an alert</div>
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                            {% for category, message in messages %}
+                                <div style="margin-bottom: -5px;" class="alert alert-{{ category }} border text-center" role="alert">{{ message }}</div>
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
                     
-                    <header class="page-header page-header-dark bg-gradient-primary-to-secondary pb-10">
-                        <div class="container">
-                            <div class="page-header-content pt-4">
-                                <div class="row align-items-center justify-content-between">
-                                    <div class="col-auto mt-4">
-                                        <h1 class="page-header-title">
-                                            <div class="page-header-icon"><i data-feather={% block icon %} {% endblock %}></i></div>
-                                            {% block title %}  {% endblock %}
-                                        </h1>
-                                        <div class="page-header-subtitle">{% block subtitle %} {% endblock %}</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </header>
+                    
+                    {% block header %} {% endblock %}
                     <!-- Main page content-->
                     
                     <div class="container">
