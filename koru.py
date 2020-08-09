@@ -13,7 +13,7 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/register', methods= ['GET', 'POST'])
+@app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
@@ -23,9 +23,17 @@ def register():
     return render_template('register.html', form=form)
 
 
-@app.route('/login')
+
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    """TODO"""
+    form = LoginForm()
+    if form.validate_on_submit():
+        if form.email.data == 'samivel@gmail.com' and form.password.data == 'eeeedddd':
+            flash('Login Successful', 'success')
+            return redirect(url_for('index'))
+        else:
+            flash('NO WAY', 'danger')
+    return render_template('login.html', form=form)
 
 
 
