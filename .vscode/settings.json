@@ -1,4 +1,7 @@
 {
     "editor.fontFamily": "fira code",
-    "editor.fontLigatures": true
+    "editor.fontLigatures": true,
+
+    "python.pythonPath": "~/.virtualenvs/koru_venv/bin/python3",
+    
 }
