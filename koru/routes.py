@@ -5,11 +5,15 @@ from koru.models import User, Repertoire, Dancer
 from flask_login import login_user, current_user, logout_user, login_required
 
 
+@app.route('/landing')
+def landing():
+    return render_template('landing.html')
 
 
 @app.route('/')
 def index():
-    
+    if current_user.is_authenticated == False:
+        return redirect(url_for('landing'))
     return render_template('index.html')
 
 
