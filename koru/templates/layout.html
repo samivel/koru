@@ -8,7 +8,7 @@
         <meta name="author" content="" />
         <title>koru: {% block titlebar %}{% endblock %}</title>
         <link href="../static/css/styles.css" rel="stylesheet" />
-        <link rel="icon" type="image/x-icon" href="../static/images/logo.png" />
+        <link rel="icon" type="image/x-icon" href="../static/images/eototto.png" />
         <script data-search-pseudo-elements defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.27.0/feather.min.js" crossorigin="anonymous"></script>
     </head>
@@ -22,10 +22,10 @@
             <ul class="navbar-nav align-items-center ml-auto">
                 {% if current_user.is_authenticated %}
                 <li class="nav-item dropdown no-caret mr-2 dropdown-user">
-                    <a class="btn btn-icon btn-transparent-dark dropdown-toggle" id="navbarDropdownUserImage" href="javascript:void(0);" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="img-fluid" src="../static/images/logo.png" /></a>
+                    <a class="btn btn-icon btn-transparent-dark dropdown-toggle" id="navbarDropdownUserImage" href="javascript:void(0);" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img class="img-fluid" src="../static/images/accounticon.png" /></a>
                     <div class="dropdown-menu dropdown-menu-right border-0 shadow animated--fade-in-up" aria-labelledby="navbarDropdownUserImage">
                         <h6 class="dropdown-header d-flex align-items-center">
-                            <img class="dropdown-user-img" src="../static/images/logo.png" />
+                            <img class="dropdown-user-img" src="../static/images/accounticon.png"/>
                             <div class="dropdown-user-details">
                                 <div class="dropdown-user-details-name">{{ current_user.first_name }} {{ current_user.last_name }}</div>
                                 <div class="dropdown-user-details-email">{{ current_user.email }}</div>

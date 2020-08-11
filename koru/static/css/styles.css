@@ -228,7 +228,10 @@ figure {
 img {
   vertical-align: middle;
   border-style: none;
+
 }
+
+
 
 svg {
   overflow: hidden;
@@ -464,6 +467,12 @@ mark,
 .mark {
   padding: 0.2em;
   background-color: #fcf8e3;
+}
+
+.imgsquare {
+  width: 400px;
+  height: 400px;
+  overflow: hidden;
 }
 
 .list-unstyled {
