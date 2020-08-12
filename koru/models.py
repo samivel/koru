@@ -13,6 +13,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(60), unique=True, nullable=False)
     image_file = db.Column(db.String(20), nullable=False, default='default.png')
     password = db.Column(db.String(60), nullable=False)
+    
 
     def __repr__(self):
         return f"User('{self.first_name}' '{self.last_name}', '{self.email}', '{self.company_name}', '{self.image_file}')"
@@ -36,6 +37,7 @@ class Dancer(db.Model):
     rank = db.Column(db.String(20), nullable=False)
     gender = db.Column(db.String(20), nullable=False)
     repertoire_id = db.Column(db.Integer, db.ForeignKey('repertoire.id'))
+    
 
     def __repr__(self):
         return f"Dancer('{self.first_name}' '{self.last_name}', '{self.rank}', '{self.gender}')"

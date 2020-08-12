@@ -1,8 +1,8 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, RadioField
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, InputRequired
 from koru.models import User
 
 
@@ -63,3 +63,19 @@ class UpdateAccountForm(FlaskForm):
 class UpdatePhoto(FlaskForm):
     photo = FileField('Upload new image', validators=[FileAllowed(['jpg', 'png']), DataRequired()])
     submit = SubmitField('Upload new image')
+
+
+class AddDancerForm(FlaskForm):
+    first_name = StringField('First Name', validators=[DataRequired()])
+
+    last_name = StringField('Last Name', validators=[DataRequired()])
+
+    rank = RadioField(u'Rank', choices=[('principal', 'Principal'), ('first_soloist', 'First Soloist'),
+                                                                     ('second_soloist', 'Second Soloist'), ('corps_de_ballet', 'Corps de Ballet'),
+                                                                      ('apprentice', 'Apprentice/Second Company')])
+
+    gender = RadioField(u'Gender', choices=[('male', 'Male'), ('female', 'Female'), ('other', 'Other')])
+
+    submit = SubmitField('Add Dancer')
+
+    

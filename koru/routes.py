@@ -1,6 +1,6 @@
 from flask import render_template, flash, redirect, url_for, request, session
 from koru import app, db, bcrypt
-from koru.forms import RegistrationForm, LoginForm, UpdateAccountForm, UpdatePhoto
+from koru.forms import RegistrationForm, LoginForm, UpdateAccountForm, UpdatePhoto, AddDancerForm
 from koru.models import User, Repertoire, Dancer
 from flask_login import login_user, current_user, logout_user, login_required
 from koru.helpers import save_photo
@@ -14,7 +14,7 @@ def landing():
 def index():
     if current_user.is_authenticated == False:
         return redirect(url_for('landing'))
-    return render_template('index.html')
+    return render_template('index.html', title='Home')
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -95,7 +95,7 @@ def account():
         form.last_name.data = current_user.last_name
         form.company_name.data = current_user.company_name
         form.email.data = current_user.email
-    return render_template('account.html', form=form,)
+    return render_template('account.html', form=form, title='Account')
 
 
 
@@ -115,11 +115,38 @@ def account_photo():
 
         flash('Profile pic updated', 'success')
         return redirect(url_for('account_photo'))
-    return render_template('account-photo.html', image_file=image_file, form=form)
+    return render_template('account-photo.html', image_file=image_file, form=form, title='Account photo')
 
 
 @app.route('/add-dancer', methods=['GET', 'POST'])
 @login_required
 def add_dancer():
+    form = AddDancerForm()
+    if form.validate_on_submit():
 
-    return render_template('add-dancer.html')
+        flash('Dancer successfully added', 'success')
+        return redirect(url_for('add_dancer'))
+        
+    return render_template('add-dancer.html', title='Add dancers', dancerActive='active', form=form)
+
+
+
+
+
+@app.route('/add-ballet-master', methods=['GET', 'POST'])
+@login_required
+def add_ballet_master():
+
+    return render_template('add-ballet-master.html', title='Add Ballet Master', balletMasterActive='active')
+
+@app.route('/add-accompanist', methods=['GET', 'POST'])
+@login_required
+def add_accompanist():
+
+    return render_template('add-accompanist.html', title='Add Accompanist', accompanistActive='active')
+
+@app.route('/add-repetiteur', methods=['GET', 'POST'])
+@login_required
+def add_repetiteur():
+
+    return render_template('add-repetiteur.html', title='Add Repetiteur', repetiteurActive='active')
