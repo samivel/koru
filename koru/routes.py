@@ -32,6 +32,7 @@ def register():
         # Add user object to db and commit
         db.session.add(user)
         db.session.commit()
+        login_user(user)
         # Flash success message and redirect to login
         flash(f'Account created for {form.first_name.data} {form.last_name.data}, with {form.company_name.data}!', 'success')
         return redirect(url_for('login'))
@@ -107,7 +108,7 @@ def account_photo():
 
     if form.validate_on_submit():
         # Use save_photo from helpers
-        new_photo = save_photo(form.photo.data)
+        new_photo = save_photo(form.photo.data, str(current_user.id))
         # Update users photo and commit
         current_user.image_file = new_photo
         db.session.commit()
@@ -115,3 +116,10 @@ def account_photo():
         flash('Profile pic updated', 'success')
         return redirect(url_for('account_photo'))
     return render_template('account-photo.html', image_file=image_file, form=form)
+
+
+@app.route('/add-dancer', methods=['GET', 'POST'])
+@login_required
+def add_dancer():
+
+    return render_template('add-dancer.html')

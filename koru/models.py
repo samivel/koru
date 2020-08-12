@@ -17,6 +17,8 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return f"User('{self.first_name}' '{self.last_name}', '{self.email}', '{self.company_name}', '{self.image_file}')"
 
+    
+
 class Repertoire(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(60), nullable=False)
