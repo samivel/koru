@@ -10,6 +10,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = '1b13c35d94c96ea3dffe982f0000d7d4'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///koru.db'
 
+
 # Initialize database instance
 db = SQLAlchemy(app)
 
