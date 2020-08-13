@@ -70,10 +70,10 @@ class AddDancerForm(FlaskForm):
 
     last_name = StringField('Last Name', validators=[DataRequired()])
 
-    rank = RadioField(u'Rank', choices=[('Principal'), ('First Soloist'), ('Second Soloist'), ('Corps de Ballet'), ('Apprentice/Second Company')])
+    rank = RadioField(u'Rank', choices=[('Principal'), ('First Soloist'), ('Second Soloist'), ('Corps de Ballet'), ('Apprentice/2nd Company')])
 
     gender = RadioField(u'Gender', choices=[('Male'), ('Female'), ('Other')])
 
-    submit = SubmitField('Add Dancer')
+    submit = SubmitField('Submit')
 
     

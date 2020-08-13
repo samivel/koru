@@ -1,4 +1,4 @@
-from flask import render_template, flash, redirect, url_for, request, session
+from flask import render_template, flash, redirect, url_for, request, session, abort
 from koru import app, db, bcrypt
 from koru.forms import RegistrationForm, LoginForm, UpdateAccountForm, UpdatePhoto, AddDancerForm
 from koru.models import User, Repertoire, Dancer
@@ -14,7 +14,7 @@ def landing():
 def index():
     if current_user.is_authenticated == False:
         return redirect(url_for('landing'))
-    # This line querys the database for all dancers belonging to the current user, and orders them by last name
+    # This line queries the database for all dancers belonging to the current user, and orders them by last name
     dancers = Dancer.query.filter_by(user_id=current_user.id).order_by(Dancer.last_name).all()
     return render_template('index.html', title='Home', dancers=dancers)
 
@@ -120,6 +120,14 @@ def account_photo():
     return render_template('account-photo.html', image_file=image_file, form=form, title='Account photo')
 
 
+@app.route('/manage-dancers', methods=['GET', 'POST'])
+@login_required
+def manage_dancers():
+    dancers = Dancer.query.filter_by(user_id=current_user.id).filter(Dancer.rank=="Principal").order_by(Dancer.rank, Dancer.gender, Dancer.last_name).all()
+    return render_template('manage-dancers.html', title='Manage Dancers', manageActive='active', dancers=dancers)
+
+
+
 @app.route('/add-dancer', methods=['GET', 'POST'])
 @login_required
 def add_dancer():
@@ -136,22 +144,42 @@ def add_dancer():
 
 
 
-
-
-@app.route('/add-ballet-master', methods=['GET', 'POST'])
+@app.route('/dancer/<int:dancer_id>', methods=['GET', 'POST'])
 @login_required
-def add_ballet_master():
+def dancer(dancer_id):
+    # Query db for dancer matching the id passed in with url get
+    dancer = Dancer.query.get_or_404(dancer_id)
+    # Ensure dancer belongs to user
+    if dancer.company != current_user:
+        abort(403)
+    # Render page to manage dancer
+    form = AddDancerForm()
+    if form.validate_on_submit():
+        dancer.first_name = form.first_name.data
+        dancer.last_name = form.last_name.data
+        dancer.rank = form.rank.data
+        dancer.gender = form.gender.data
+        db.session.commit()
+        flash('Dancer Updated', 'success')
+        return redirect(url_for('manage_dancers'))
+    elif request.method == 'GET':
+        form.first_name.data = dancer.first_name
+        form.last_name.data = dancer.last_name
+        form.rank.data = dancer.rank
+        form.gender.data = dancer.gender
+    return render_template('dancer.html', title=dancer.first_name, dancer=dancer, manageActive='active', form=form)
 
-    return render_template('add-ballet-master.html', title='Add Ballet Master', balletMasterActive='active')
 
-@app.route('/add-accompanist', methods=['GET', 'POST'])
+@app.route('/dancer/<int:dancer_id>/delete', methods=['POST'])
 @login_required
-def add_accompanist():
-
-    return render_template('add-accompanist.html', title='Add Accompanist', accompanistActive='active')
-
-@app.route('/add-repetiteur', methods=['GET', 'POST'])
-@login_required
-def add_repetiteur():
-
-    return render_template('add-repetiteur.html', title='Add Repetiteur', repetiteurActive='active')
+def delete_dancer(dancer_id):
+    # Query db for dancer matching the id passed in with url get
+    dancer = Dancer.query.get_or_404(dancer_id)
+    # Ensure dancer belongs to user
+    if dancer.company != current_user:
+        abort(403)
+    #Delete dancer from database and redirect
+    db.session.delete(dancer)
+    db.session.commit()
+    flash('Dancer deleted', 'info')
+    return redirect(url_for('manage_dancers'))
