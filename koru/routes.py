@@ -14,7 +14,9 @@ def landing():
 def index():
     if current_user.is_authenticated == False:
         return redirect(url_for('landing'))
-    return render_template('index.html', title='Home')
+    # This line querys the database for all dancers belonging to the current user, and orders them by last name
+    dancers = Dancer.query.filter_by(user_id=current_user.id).order_by(Dancer.last_name).all()
+    return render_template('index.html', title='Home', dancers=dancers)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -123,6 +125,9 @@ def account_photo():
 def add_dancer():
     form = AddDancerForm()
     if form.validate_on_submit():
+        new_dancer = Dancer(first_name=form.first_name.data, last_name=form.last_name.data, rank=form.rank.data, gender=form.gender.data, company=current_user)
+        db.session.add(new_dancer)
+        db.session.commit()
 
         flash('Dancer successfully added', 'success')
         return redirect(url_for('add_dancer'))

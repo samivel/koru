@@ -14,7 +14,7 @@
                 <div class="col-auto mt-4">
                     <h1 class="page-header-title">
                         <div class="page-header-icon"><i data-feather="user-check"></i></div>
-                        Home Page
+                        {{ current_user.company_name }} Dashboard
                     </h1>
                     <div class="page-header-subtitle">This will contain all kinds of cool information</div>
                 </div>
@@ -26,12 +26,33 @@
 {% block main %}
 
 <div class="container">
-<div class="card mt-n10">
-    <div class="card-header">Boxed Layout Example</div>
-    <div class="card-body">Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, accusamus quisquam? Consequatur atque porro vel repellendus, iste perferendis hic nostrum! Corrupti porro vel illo ipsum neque ex nemo voluptas amet.
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati consequuntur aspernatur hic dolores exercitationem error eaque explicabo nemo rerum harum distinctio doloremque qui laudantium dignissimos, in sed deleniti natus vitae.
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Soluta quisquam ratione magnam est dolorem obcaecati doloremque perspiciatis, totam minus facilis repudiandae minima adipisci animi numquam corporis repellendus cumque blanditiis non.
+
+    <div class="card mt-n10">
+        <div class="card-header">Current Dancer Roster</div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Rank</th>
+                        <th scope="col">Gender</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for dancer in dancers %}
+                    <tr>
+
+                        <td>{{ dancer.first_name}} {{ dancer.last_name }}</td>
+                        <td>{{ dancer.rank }}</td>
+                        <td>{{ dancer.gender }}</td>
+                    </tr>
+                    {% endfor %}
+                
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
+
 </div>
 {% endblock %}
