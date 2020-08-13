@@ -123,8 +123,16 @@ def account_photo():
 @app.route('/manage-dancers', methods=['GET', 'POST'])
 @login_required
 def manage_dancers():
-    dancers = Dancer.query.filter_by(user_id=current_user.id).filter(Dancer.rank=="Principal").order_by(Dancer.rank, Dancer.gender, Dancer.last_name).all()
-    return render_template('manage-dancers.html', title='Manage Dancers', manageActive='active', dancers=dancers)
+    # Query db for all dancers belonging to the user to display in order of rank first, then gender the last name
+    principal_dancers = Dancer.query.filter_by(user_id=current_user.id).filter(Dancer.rank=='Principal').order_by(Dancer.gender, Dancer.last_name).all()
+    first_soloist_dancers = Dancer.query.filter_by(user_id=current_user.id).filter(Dancer.rank=='First Soloist').order_by(Dancer.gender, Dancer.last_name).all()
+    second_soloist_dancers = Dancer.query.filter_by(user_id=current_user.id).filter(Dancer.rank=='Second Soloist').order_by(Dancer.gender, Dancer.last_name).all()
+    corps_dancers = Dancer.query.filter_by(user_id=current_user.id).filter(Dancer.rank=='Corps de Ballet').order_by(Dancer.gender, Dancer.last_name).all()
+    apprentice_dancers = Dancer.query.filter_by(user_id=current_user.id).filter(Dancer.rank=='Apprentice/2nd Company').order_by(Dancer.gender, Dancer.last_name).all()
+
+
+    return render_template('manage-dancers.html', title='Manage Dancers', manageActive='active', principal_dancers=principal_dancers, first_soloist_dancers=first_soloist_dancers,
+                                                        second_soloist_dancers=second_soloist_dancers, corps_dancers=corps_dancers, apprentice_dancers=apprentice_dancers)
 
 
 
