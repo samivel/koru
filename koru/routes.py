@@ -1,9 +1,9 @@
 from flask import render_template, flash, redirect, url_for, request, session, abort
 from koru import app, db, bcrypt
-from koru.forms import RegistrationForm, LoginForm, UpdateAccountForm, UpdatePhoto, AddDancerForm
+from koru.forms import RegistrationForm, LoginForm, UpdateAccountForm, UpdatePhoto, AddDancerForm, ResetPasswordForm, RequestResetForm
 from koru.models import User, Repertoire, Dancer
 from flask_login import login_user, current_user, logout_user, login_required
-from koru.helpers import save_photo
+from koru.helpers import save_photo, send_reset_email
 
 @app.route('/landing')
 def landing():
@@ -67,6 +67,40 @@ def login():
             flash('Login Unsuccessful', 'danger')
     return render_template('login.html', form=form)
 
+
+@app.route('/reset_password', methods=['GET', 'POST'])
+def reset_request():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    form = RequestResetForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        send_reset_email(user)
+        flash('Check your email for reset link', 'info')
+        return redirect(url_for('login'))
+    return render_template('reset_request.html', title='Reset Password', form=form)
+
+
+@app.route('/reset_password/<token>', methods=['GET', 'POST'])
+def reset_token(token):
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    user = User.verify_reset_token(token)
+    if not user:
+        flash('That is an invalid or expired reset link', 'warning')
+        return redirect(url_for('reset_request'))
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        # Hash users password
+        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
+        user.password = hashed_password
+        db.session.commit()
+        login_user(user)
+        flash('Password Reset', 'success')
+        return redirect(url_for('index'))
+    
+
+    return render_template('reset_token.html', title='Reset Password', form=form)
 
 
 @app.route('/logout')
@@ -140,6 +174,7 @@ def manage_dancers():
 @login_required
 def add_dancer():
     form = AddDancerForm()
+    # If form validates, creates a new dancer instance with the provided values
     if form.validate_on_submit():
         new_dancer = Dancer(first_name=form.first_name.data, last_name=form.last_name.data, rank=form.rank.data, gender=form.gender.data, company=current_user)
         db.session.add(new_dancer)
@@ -162,6 +197,7 @@ def dancer(dancer_id):
         abort(403)
     # Render page to manage dancer
     form = AddDancerForm()
+    # Assigns user provided values to the dancer instance
     if form.validate_on_submit():
         dancer.first_name = form.first_name.data
         dancer.last_name = form.last_name.data
@@ -171,6 +207,7 @@ def dancer(dancer_id):
         flash('Dancer Updated', 'success')
         return redirect(url_for('manage_dancers'))
     elif request.method == 'GET':
+        # Fills the form with the dancers info when page rendered via GET
         form.first_name.data = dancer.first_name
         form.last_name.data = dancer.last_name
         form.rank.data = dancer.rank
