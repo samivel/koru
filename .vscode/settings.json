@@ -3,5 +3,8 @@
     "editor.fontLigatures": true,
 
     "python.pythonPath": "~/.virtualenvs/koru_venv/bin/python3",
+    "cSpell.words": [
+        "korukorukorudance"
+    ],
     
 }

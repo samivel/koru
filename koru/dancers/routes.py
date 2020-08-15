@@ -86,4 +86,3 @@ def delete_dancer(dancer_id):
     db.session.commit()
     flash('Dancer deleted', 'info')
     return redirect(url_for('dancers.manage_dancers'))
- 
