@@ -14,15 +14,15 @@
     </head>
     <body class="nav-fixed">
         <nav class="topnav navbar navbar-expand shadow navbar-light bg-white" id="sidenavAccordion">
-            <a class="navbar-brand" style="font-size: 40px;" href="{{ url_for('index') }}">koru</a>
+            <a class="navbar-brand" style="font-size: 40px;" href="{{ url_for('main.index') }}">koru</a>
             
             <form class="form-inline mr-auto d-none d-md-block">
                 
             </form>
             <ul class="navbar-nav align-items-center ml-auto">
                 
-                <a class="nav-link" href="{{ url_for('register') }}">Register</a>
-                <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+                <a class="nav-link" href="{{ url_for('users.register') }}">Register</a>
+                <a class="nav-link" href="{{ url_for('users.login') }}">Login</a>
                
                 
             </ul>

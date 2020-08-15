@@ -34,7 +34,7 @@
                     {% for dancer in dancers %}
                     
                         <tr>
-                            <td> <a href="{{ url_for('dancer', dancer_id=dancer.id) }}"> {{dancer.first_name}} {{ dancer.last_name }}</a></td>
+                            <td> <a href="{{ url_for('dancers.dancer', dancer_id=dancer.id) }}"> {{dancer.first_name}} {{ dancer.last_name }}</a></td>
                             <td>{{ dancer.rank }}</td>
                             <td>{{ dancer.gender }}</td>
                         </tr>

@@ -104,7 +104,7 @@
             
             <div class="modal-footer">
                 <button class="btn btn-outline-dark" type="button" data-dismiss="modal">I've changed my mind!</button>
-                <form action="{{ url_for('delete_dancer', dancer_id=dancer.id) }}" method="POST">
+                <form action="{{ url_for('dancers.delete_dancer', dancer_id=dancer.id) }}" method="POST">
                     <input type="submit" class="btn btn-danger" value="Delete">
                 </form>
             </div>

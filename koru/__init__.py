@@ -3,28 +3,39 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
-import os
+from koru.config import Config
 
 
-app = Flask(__name__)
-# Configure secret key and Database uri
-app.config['SECRET_KEY'] = '1b13c35d94c96ea3dffe982f0000d7d4'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///koru.db'
 
 
 # Initialize database instance
-db = SQLAlchemy(app)
+db = SQLAlchemy()
 
-bcrypt = Bcrypt(app)
+bcrypt = Bcrypt()
 
-login_manager = LoginManager(app)
-login_manager.login_view = 'login'
+login_manager = LoginManager()
+login_manager.login_view = 'users.login'
 login_manager.login_message_category = "info"
-app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
-app.config['MAIL_PORT'] = 587
-app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = 'korukorukorudance'
-app.config['MAIL_PASSWORD'] = 'korukoru'
-mail = Mail(app)
 
-from koru import routes
+mail = Mail()
+
+
+
+def create_app(config_class=Config):
+    app = Flask(__name__)
+    app.config.from_object(Config)
+
+    db.init_app(app)
+    bcrypt.init_app(app)
+    login_manager.init_app(app)
+    mail.init_app(app)
+
+
+    from koru.users.routes import users
+    app.register_blueprint(users)
+    from koru.dancers.routes import dancers
+    app.register_blueprint(dancers)
+    from koru.main.routes import main
+    app.register_blueprint(main)
+
+    return app

@@ -19,35 +19,35 @@
                         <tbody>
                             {% for dancer in principal_dancers %}
                                 <tr>
-                                    <td> <a href="{{ url_for('dancer', dancer_id=dancer.id) }}"> {{dancer.first_name}} {{ dancer.last_name }}</a></td>
+                                    <td> <a href="{{ url_for('dancers.dancer', dancer_id=dancer.id) }}"> {{dancer.first_name}} {{ dancer.last_name }}</a></td>
                                     <td>{{ dancer.rank }}</td>
                                     <td>{{ dancer.gender }}</td>
                                 </tr>
                             {% endfor %}
                             {% for dancer in first_soloist_dancers %}
                                 <tr>
-                                    <td> <a href="{{ url_for('dancer', dancer_id=dancer.id) }}"> {{dancer.first_name}} {{ dancer.last_name }}</a></td>
+                                    <td> <a href="{{ url_for('dancers.dancer', dancer_id=dancer.id) }}"> {{dancer.first_name}} {{ dancer.last_name }}</a></td>
                                     <td>{{ dancer.rank }}</td>
                                     <td>{{ dancer.gender }}</td>
                                 </tr>
                             {% endfor %}
                             {% for dancer in second_soloist_dancers %}
                                 <tr>
-                                    <td> <a href="{{ url_for('dancer', dancer_id=dancer.id) }}"> {{dancer.first_name}} {{ dancer.last_name }}</a></td>
+                                    <td> <a href="{{ url_for('dancers.dancer', dancer_id=dancer.id) }}"> {{dancer.first_name}} {{ dancer.last_name }}</a></td>
                                     <td>{{ dancer.rank }}</td>
                                     <td>{{ dancer.gender }}</td>
                                 </tr>
                             {% endfor %}
                             {% for dancer in corps_dancers %}
                                 <tr>
-                                    <td> <a href="{{ url_for('dancer', dancer_id=dancer.id) }}"> {{dancer.first_name}} {{ dancer.last_name }}</a></td>
+                                    <td> <a href="{{ url_for('dancers.dancer', dancer_id=dancer.id) }}"> {{dancer.first_name}} {{ dancer.last_name }}</a></td>
                                     <td>{{ dancer.rank }}</td>
                                     <td>{{ dancer.gender }}</td>
                                 </tr>
                             {% endfor %}
                             {% for dancer in apprentice_dancers %}
                                 <tr>
-                                    <td> <a href="{{ url_for('dancer', dancer_id=dancer.id) }}"> {{dancer.first_name}} {{ dancer.last_name }}</a></td>
+                                    <td> <a href="{{ url_for('dancers.dancer', dancer_id=dancer.id) }}"> {{dancer.first_name}} {{ dancer.last_name }}</a></td>
                                     <td>{{ dancer.rank }}</td>
                                     <td>{{ dancer.gender }}</td>
                                 </tr>

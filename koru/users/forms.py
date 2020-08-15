@@ -1,9 +1,10 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, RadioField
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, InputRequired
+from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from koru.models import User
+
 
 
 class RegistrationForm(FlaskForm):
@@ -65,18 +66,6 @@ class UpdatePhoto(FlaskForm):
     submit = SubmitField('Upload new image')
 
 
-class AddDancerForm(FlaskForm):
-    first_name = StringField('First Name', validators=[DataRequired()])
-
-    last_name = StringField('Last Name', validators=[DataRequired()])
-
-    rank = RadioField(u'Rank', choices=[('Principal'), ('First Soloist'), ('Second Soloist'), ('Corps de Ballet'), ('Apprentice/2nd Company')])
-
-    gender = RadioField(u'Gender', choices=[('Male'), ('Female'), ('Other')])
-
-    submit = SubmitField('Submit')
-
-
 class RequestResetForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     submit = SubmitField('Request Reset Link')
@@ -92,3 +81,5 @@ class ResetPasswordForm(FlaskForm):
     password = PasswordField(' New Password', validators=[DataRequired(), Length(min=6)])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Reset Password')
+
+
