@@ -1,0 +1,75 @@
+{% extends "manageBMLayout.html" %}
+
+{% block bmbody %}
+
+<div class="tab-pane py-5 py-xl-10 fade show active" id="wizard1" role="tabpanel" aria-labelledby="wizard1-tab">
+    <div class="row justify-content-center">
+        <div class="col-xxl-6 col-xl-8 col-lg-10 col-md-10 col-sm-10 col-xs-12 m-1">
+            <h3 class="text-primary">New Ballet Master</h3>
+            <h5 class="card-title">Enter the information for the Ballet Master here</h5>
+            <form class="col-sm-12" method="POST" action="">
+                {{ form.hidden_tag() }}
+                
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        {{ form.first_name.label(class="small mb-1") }}
+
+                        {% if form.first_name.errors %}
+                            {{ form.first_name(class="form-control py-4 is-invalid", placeholder="First Name") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.first_name.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.first_name(class="form-control py-4", placeholder="First Name") }}
+                            {% endif %} 
+                    </div>
+                    <div class="form-group col-md-6">
+                        {{ form.last_name.label(class="small mb-1") }}
+
+                        {% if form.last_name.errors %}
+                            {{ form.last_name(class="form-control py-4 is-invalid", placeholder="Last Name") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.last_name.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.last_name(class="form-control py-4", placeholder="Last Name") }}
+                            {% endif %}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        {{ form.gender.label(class="small mb-1") }}
+
+                        {% if form.gender.errors %}
+                            {% for subfield in form.gender %} </br>
+                                <tr>
+                                    <td>{{ subfield }}</td>
+                                    <td>{{ subfield.label }}</td>
+                                </tr>
+                            {% endfor %}</br>
+                            {% for error in form.gender.errors %}
+                                <span style="color: red;">{{ error }}</span>
+                            {% endfor %}
+                            {% else %}
+                            {% for subfield in form.gender %} </br>
+                                <tr>
+                                    <td>{{ subfield }}</td>
+                                    <td>{{ subfield.label }}</td>
+                                </tr>
+                            {% endfor %}
+                            {% endif %}
+                    </div>
+                    <div>
+                    {{ form.submit(class="btn btn-outline-primary") }}
+                </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

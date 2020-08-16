@@ -17,7 +17,11 @@ class User(db.Model, UserMixin):
     image_file = db.Column(db.String(20), nullable=False, default='default.png')
     password = db.Column(db.String(60), nullable=False)
     dancers = db.relationship('Dancer', backref='company', lazy=True)
-    
+    balletmasters= db.relationship('BalletMaster', backref='company', lazy=True)
+    accompanists = db.relationship('Accompanist', backref='company', lazy=True)
+    repetiteurs = db.relationship('Repetiteur', backref='company', lazy=True)
+
+
     # Make reset token for resetting password
     def get_reset_token(self, expires_sec=1800):
         s = Serializer(current_app.config['SECRET_KEY'], expires_sec)
@@ -53,6 +57,57 @@ class Dancer(db.Model):
 
     
 
+
+class BalletMaster(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.String(30), nullable=False)
+    last_name = db.Column(db.String(30), nullable=False)
+    gender = db.Column(db.String(20), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    
+
+    def __repr__(self):
+        return f"Ballet Master('{self.first_name}' '{self.last_name}', '{self.gender}')"
+
+
+class Accompanist(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.String(30), nullable=False)
+    last_name = db.Column(db.String(30), nullable=False)
+    gender = db.Column(db.String(20), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    
+
+    def __repr__(self):
+        return f"Accompanist('{self.first_name}' '{self.last_name}', '{self.gender}')"
+
+
+class Repetiteur(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.String(30), nullable=False)
+    last_name = db.Column(db.String(30), nullable=False)
+    gender = db.Column(db.String(20), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    
+
+    def __repr__(self):
+        return f"Repetiteur('{self.first_name}' '{self.last_name}', '{self.gender}')"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class Repertoire(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(60), nullable=False)
@@ -61,5 +116,4 @@ class Repertoire(db.Model):
 
     def __repr__(self):
         return f"Repertoire('{self.name}')"
-
 

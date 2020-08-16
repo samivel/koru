@@ -33,10 +33,19 @@ def create_app(config_class=Config):
 
     from koru.users.routes import users
     app.register_blueprint(users)
+
     from koru.dancers.routes import dancers
     app.register_blueprint(dancers)
+
     from koru.main.routes import main
     app.register_blueprint(main)
+
     from koru.errors.handlers import errors
     app.register_blueprint(errors)
+    
+    from koru.bms.routes import bms
+    app.register_blueprint(bms)
+    
+
+    
     return app
