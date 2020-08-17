@@ -58,6 +58,11 @@
                 <nav class="sidenav shadow-right sidenav-light">
                     <div class="sidenav-menu">
                         <div class="nav accordion" id="accordionSidenav">
+                            <div class="sidenav-menu-heading">Home</div>
+                            <a class="nav-link" href="{{ url_for('main.index') }}">
+                                <div class="nav-link-icon"><i data-feather="home"></i></div>
+                                Home
+                            </a>
                             <div class="sidenav-menu-heading">Manage</div>
                             <a class="nav-link collapsed" href="javascript:void(0);" data-toggle="collapse" data-target="#collapseDashboards" aria-expanded="false" aria-controls="collapseDashboards">
                                 <div class="nav-link-icon"><i data-feather="users"></i></div>
@@ -78,7 +83,7 @@
                                         Accompanists
                                         
                                     </a>
-                                    <a class="nav-link" href="">
+                                    <a class="nav-link" href="{{ url_for('repetiteurs.manage_repetiteurs') }}">
                                         Repetiteurs
                                         
                                     </a>

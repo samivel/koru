@@ -1,0 +1,93 @@
+{% extends "manageRepetiteurLayout.html" %}
+
+{% block repetiteurbody %}
+
+<div class="tab-pane py-5 py-xl-10 fade show active" id="wizard1" role="tabpanel" aria-labelledby="wizard1-tab">
+    <div class="row justify-content-center">
+        <div class="col-xxl-6 col-xl-8 col-lg-10 col-md-10 col-sm-10 col-xs-12 m-1">
+            <h3 class="text-primary">{{ repetiteur.first_name }} {{ repetiteur.last_name }}</h3>
+            <h5 class="card-title">Update Info</h5>
+            <form class="col-sm-12" method="POST" action="">
+                {{ form.hidden_tag() }}
+                
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        {{ form.first_name.label(class="small mb-1") }}
+
+                        {% if form.first_name.errors %}
+                            {{ form.first_name(class="form-control py-4 is-invalid", placeholder="First Name") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.first_name.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.first_name(class="form-control py-4", placeholder="First Name") }}
+                            {% endif %} 
+                    </div>
+                    <div class="form-group col-md-6">
+                        {{ form.last_name.label(class="small mb-1") }}
+
+                        {% if form.last_name.errors %}
+                            {{ form.last_name(class="form-control py-4 is-invalid", placeholder="Last Name") }}
+                                <div class="invalid-feedback">
+                                    {% for error in form.last_name.errors %}
+                                        <span>{{ error }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.last_name(class="form-control py-4", placeholder="Last Name") }}
+                            {% endif %}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        {{ form.gender.label(class="small mb-1") }}
+
+                        {% if form.gender.errors %}
+                            {% for subfield in form.gender %} </br>
+                                <tr>
+                                    <td>{{ subfield }}</td>
+                                    <td>{{ subfield.label }}</td>
+                                </tr>
+                            {% endfor %}</br>
+                            {% for error in form.gender.errors %}
+                                <span style="color: red;">{{ error }}</span>
+                            {% endfor %}
+                            {% else %}
+                            {% for subfield in form.gender %} </br>
+                                <tr>
+                                    <td>{{ subfield }}</td>
+                                    <td>{{ subfield.label }}</td>
+                                </tr>
+                            {% endfor %}
+                            {% endif %}
+                    </div>
+                    <div>
+                    
+                </div>
+                </div>
+                {{ form.submit(class="btn btn-outline-primary") }}
+                <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModalCenter">Delete {{ repetiteur.first_name }}</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="deleteModalCenter" tabindex="-1" role="dialog" aria-labelledby="deleteModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalCenterTitle">Delete {{ repetiteur.first_name }}?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+            </div>
+            
+            <div class="modal-footer">
+                <button class="btn btn-outline-dark" type="button" data-dismiss="modal">I've changed my mind!</button>
+                <form action="{{ url_for('repetiteurs.delete_repetiteur', repetiteur_id=repetiteur.id) }}" method="POST">
+                    <input type="submit" class="btn btn-danger" value="Delete">
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}

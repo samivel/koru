@@ -49,5 +49,7 @@ def create_app(config_class=Config):
     from koru.accompanists.routes import accompanists
     app.register_blueprint(accompanists)
 
+    from koru.repetiteurs.routes import repetiteurs
+    app.register_blueprint(repetiteurs)
     
     return app
