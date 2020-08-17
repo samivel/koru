@@ -16,6 +16,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(60), unique=True, nullable=False)
     image_file = db.Column(db.String(20), nullable=False, default='default.png')
     password = db.Column(db.String(60), nullable=False)
+    #Relationships
     dancers = db.relationship('Dancer', backref='company', lazy=True)
     balletmasters= db.relationship('BalletMaster', backref='company', lazy=True)
     accompanists = db.relationship('Accompanist', backref='company', lazy=True)

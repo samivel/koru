@@ -46,6 +46,8 @@ def create_app(config_class=Config):
     from koru.bms.routes import bms
     app.register_blueprint(bms)
     
+    from koru.accompanists.routes import accompanists
+    app.register_blueprint(accompanists)
 
     
     return app

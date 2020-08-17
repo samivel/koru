@@ -1,12 +1,12 @@
-{% extends "manageBMLayout.html" %}
+{% extends "manageAccompanistLayout.html" %}
 
-{% block bmbody %}
+{% block accompanistbody %}
 
 <div class="tab-pane py-5 py-xl-10 fade show active" id="wizard1" role="tabpanel" aria-labelledby="wizard1-tab">
     <div class="row justify-content-center">
         <div class="col-xxl-6 col-xl-8 col-lg-10 col-md-10 col-sm-10 col-xs-12 m-1">
-            <h3 class="text-primary">New Ballet Master</h3>
-            <h5 class="card-title">Enter the information for the Ballet Master here</h5>
+            <h3 class="text-primary">New Accompanist</h3>
+            <h5 class="card-title">Enter the information for the Accompanist here</h5>
             <form class="col-sm-12" method="POST" action="">
                 {{ form.hidden_tag() }}
                 
@@ -72,5 +72,4 @@
         </div>
     </div>
 </div>
-
 {% endblock %}

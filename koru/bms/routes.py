@@ -13,7 +13,7 @@ bms = Blueprint('bms', __name__)
 def manage_balletMasters():
     bms = BalletMaster.query.filter_by(user_id=current_user.id)
 
-    return render_template('manage-balletMasters.html', title='Manage Ballet Masters', manageActive='active', bms=bms)
+    return render_template('manage-balletMasters.html', title='Ballet Masters', manageActive='active', bms=bms)
 
 
 
