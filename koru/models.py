@@ -21,6 +21,7 @@ class User(db.Model, UserMixin):
     balletmasters= db.relationship('BalletMaster', backref='company', lazy=True)
     accompanists = db.relationship('Accompanist', backref='company', lazy=True)
     repetiteurs = db.relationship('Repetiteur', backref='company', lazy=True)
+    repertoire = db.relationship('Repertoire', backref='company', lazy=True)
 
 
     # Make reset token for resetting password
@@ -111,10 +112,10 @@ class Repetiteur(db.Model):
 
 class Repertoire(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(60), nullable=False)
-    
+    title = db.Column(db.String(60), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     
 
     def __repr__(self):
-        return f"Repertoire('{self.name}')"
+        return f"Repertoire('{self.title}')"
 

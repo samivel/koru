@@ -90,9 +90,13 @@
                                     
                                 </nav>
                             </div>
-                            <a class="nav-link" href="charts.html">
+                            <a class="nav-link" href="{{ url_for('repertoire.add_repertoire') }}">
                                 <div class="nav-link-icon"><i data-feather="plus"></i></div>
                                 Add Repertoire
+                            </a>
+                            <a class="nav-link" href="{{ url_for('repertoire.rehearsal_assignments') }}">
+                                <div class="nav-link-icon"><i data-feather="edit-2"></i></div>
+                                Rehearsal Assignments
                             </a>
                         </div>
                     </div>

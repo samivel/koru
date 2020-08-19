@@ -51,5 +51,8 @@ def create_app(config_class=Config):
 
     from koru.repetiteurs.routes import repetiteurs
     app.register_blueprint(repetiteurs)
+
+    from koru.repertoire.routes import repertoire
+    app.register_blueprint(repertoire)
     
     return app

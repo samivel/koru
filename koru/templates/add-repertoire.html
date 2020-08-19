@@ -1,0 +1,89 @@
+{% extends "layout.html" %}
+
+
+
+
+
+
+{% block header %}
+
+<header class="page-header page-header-dark bg-gradient-primary-to-secondary pb-10">
+    <div class="container">
+        <div class="page-header-content pt-4">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-auto mt-4">
+                    <h1 class="page-header-title">
+                        <div class="page-header-icon"><i data-feather="user-check"></i></div>
+                        Add Repertoire
+                    </h1>
+                    <div class="page-header-subtitle">Add upcoming repertoire to rehearse</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+{% endblock %}
+{% block main %}
+
+<div class="container">
+    
+    
+    <div class="row mt-n10">
+        <div class="col-xl-6 mb-4">
+            <div class="card card-header-actions h-100">
+                <div class="card-header">
+                    Add Repertoire
+                    <div class="dropdown no-caret">
+                    </div>
+                </div>
+                <div class="card-body">
+                    <form method="POST" action="">
+                        {{ form.hidden_tag() }}
+                        
+                            <div class="form-group col-md-6">
+                                {{ form.title.label(class="small mb-1") }}
+
+                                {% if form.title.errors %}
+                                    {{ form.title(class="form-control py-4 is-invalid", placeholder="Repertoire Title") }}
+                                        <div class="invalid-feedback">
+                                            {% for error in form.title.errors %}
+                                                <span>{{ error }}</span>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        {{ form.title(class="form-control py-4", placeholder="Repertoire Title") }}
+                                    {% endif %} 
+                            </div>
+                            {{ form.submit(class="btn btn-outline-primary m-1 ml-3") }}
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6 mb-4">
+            <div class="card card-header-actions h-100">
+                <div class="card-header">
+                    Current Repertoire
+                    <div class="dropdown no-caret">
+                    </div>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                       
+                        <tbody>
+                            {% for rep in repertoire %}
+                            <tr>
+                                
+                                
+                                <td>{{ rep.title }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+{% endblock %}
