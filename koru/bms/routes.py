@@ -16,7 +16,7 @@ def manage_balletMasters():
     return render_template('manage-balletMasters.html', title='Ballet Masters', manageActive='active', bms=bms)
 
 
-
+# This is the route to add a ballet master
 @bms.route('/add-balletMaster', methods=['GET', 'POST'])
 @login_required
 def add_balletMaster():
